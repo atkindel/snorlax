@@ -1,0 +1,44 @@
+.bar {
+  font: 10px sans-serif;
+  background-color: #eeeeee;
+  padding: 3px;
+  margin: 5px;
+  color: #333333;
+  text-align: right;
+}
+.chart {
+  padding: 1px;
+  width: 100%;
+}
+.chart div {
+  width: 0;
+  transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+}
+body {
+  background-color: #333333;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: sans-serif;
+  margin: 5px;
+  font-weight: bold;
+  color: #eeeeee;
+}
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: #00baff;
+  margin: 10px;
+}
+img {
+  width: 100px;
+  height: 100px;
+}

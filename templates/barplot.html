@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app='Sandbox'>
+
+  <head>
+
+    <title>snorlax</title>
+
+    <!-- d3.js -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+    <!-- Moonshine -->
+    <script src="{{ url_for('static', filename='js/sandboxc.js') }}"></script>
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/barchart.css') }}">
+    <link rel="shortcut icon"
+          href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+  </head>
+
+
+  <body ng-app="sandbox">
+
+    <h2>dataviz sandbox</h2>
+    <h4>Alex Kindel</h4>
+
+    <!-- <div ng-controller='BarControl'>
+      {% if chartData %}
+        <chart data="{{ chartData }}"></chart>
+      {% else %}
+        <chart data="barData"></chart>
+      {% endif %}
+    </div> -->
+
+    <div ng-controller="FlaskControl">
+      <chart data="barData"></chart>
+    </div>
+
+  </body>
+
+</html>

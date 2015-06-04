@@ -1,0 +1,50 @@
+@base: hsl(0, 0%, 20%);
+@fontc: #eee;
+@linkc: #00baff;
+
+.bar {
+  font: 10px sans-serif;
+  background-color: @fontc;
+  padding: 3px;
+  margin: 5px;
+  color: @base;
+  text-align: right;
+}
+
+.chart {
+  padding: 1px;
+  width: 100%;
+}
+
+.chart div {
+  width: 0;
+  transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+}
+
+body {
+  background-color: @base;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+  margin: 5px;
+  font-weight: bold;
+  color: @fontc;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: @linkc;
+  margin: 10px;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
