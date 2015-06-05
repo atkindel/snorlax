@@ -18,10 +18,7 @@ app.directive 'chart', ->
     sat = lum = '50%'
     hsl = "hsl("+hue+","+sat+","+lum+")"
 
-  restrict: 'E'
-  replace: false
-  scope: data: '='
-  link: (scope, elem) ->
+  renderBar = (scope, elem) ->
     scope.$watch 'data', () ->
       d3.select elem[0]
         .append "div"
@@ -36,3 +33,8 @@ app.directive 'chart', ->
             .style "background-color", (d, i) -> barColor d
             .style "width", (d, i) -> d * 10 + 'px'
           .text (d, i) -> parseInt d
+
+  restrict: 'E'
+  replace: false
+  scope: data: '='
+  link: renderBar

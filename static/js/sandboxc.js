@@ -13,7 +13,7 @@
   ]);
 
   app.directive('chart', function() {
-    var barColor;
+    var barColor, renderBar;
     barColor = function(data) {
       var hsl, hue, lum, multiply, offset, sat;
       offset = 10;
@@ -22,25 +22,26 @@
       sat = lum = '50%';
       return hsl = "hsl(" + hue + "," + sat + "," + lum + ")";
     };
+    renderBar = function(scope, elem) {
+      return scope.$watch('data', function() {
+        return d3.select(elem[0]).append("div").attr("class", "chart").selectAll("div").data(scope.data).enter().append("div").attr("class", "bar").transition().ease("in-out-in").delay(function(d, i) {
+          return i * 100;
+        }).style("background-color", function(d, i) {
+          return barColor(d);
+        }).style("width", function(d, i) {
+          return d * 10 + 'px';
+        }).text(function(d, i) {
+          return parseInt(d);
+        });
+      });
+    };
     return {
       restrict: 'E',
       replace: false,
       scope: {
         data: '='
       },
-      link: function(scope, elem) {
-        return scope.$watch('data', function() {
-          return d3.select(elem[0]).append("div").attr("class", "chart").selectAll("div").data(scope.data).enter().append("div").attr("class", "bar").transition().ease("in-out-in").delay(function(d, i) {
-            return i * 100;
-          }).style("background-color", function(d, i) {
-            return barColor(d);
-          }).style("width", function(d, i) {
-            return d * 10 + 'px';
-          }).text(function(d, i) {
-            return parseInt(d);
-          });
-        });
-      }
+      link: renderBar
     };
   });
 
