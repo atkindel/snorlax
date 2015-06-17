@@ -4,27 +4,36 @@
 
   app = angular.module('Sandbox', []);
 
-  app.controller('BarControl', [
-    '$scope', function($scope) {
-      var i, j, results;
-      $scope.barData = [];
-      results = [];
-      for (i = j = 0; j <= 25; i = ++j) {
-        results.push($scope.barData.push(Math.random() * 100));
-      }
-      return results;
+  app.controller('FlaskControl', [
+    '$scope', '$http', function($scope, $http) {
+      return $scope.barData = $http.get('/bars/data').success(function(response) {
+        return $scope.barData = response;
+      });
     }
   ]);
 
   app.directive('chart', function() {
-    var c;
-    c = function(data) {
-      var coff, hsl, hue, lum, mult, sat;
-      coff = 10;
-      mult = 1.5;
-      hue = (data - coff) * mult;
+    var barColor, renderBar;
+    barColor = function(data) {
+      var hsl, hue, lum, multiply, offset, sat;
+      offset = 10;
+      multiply = 1.5;
+      hue = (data - offset) * multiply;
       sat = lum = '50%';
       return hsl = "hsl(" + hue + "," + sat + "," + lum + ")";
+    };
+    renderBar = function(scope, elem) {
+      return scope.$watch('data', function() {
+        return d3.select(elem[0]).append("div").attr("class", "chart").selectAll("div").data(scope.data).enter().append("div").attr("class", "bar").transition().ease("in-out-in").delay(function(d, i) {
+          return i * 100;
+        }).style("background-color", function(d, i) {
+          return barColor(d);
+        }).style("width", function(d, i) {
+          return d * 10 + 'px';
+        }).text(function(d, i) {
+          return parseInt(d);
+        });
+      });
     };
     return {
       restrict: 'E',
@@ -32,17 +41,7 @@
       scope: {
         data: '='
       },
-      link: function(scope, elem, attrs) {
-        return d3.select(elem[0]).append("div").attr("class", "chart").selectAll("div").data(scope.data).enter().append("div").attr("class", "bar").transition().ease("in-out-in").delay(function(d, i) {
-          return i * 100;
-        }).style("background-color", function(d, i) {
-          return c(d);
-        }).style("width", function(d, i) {
-          return d * 10 + 'px';
-        }).text(function(d, i) {
-          return parseInt(d);
-        });
-      }
+      link: renderBar
     };
   });
 
